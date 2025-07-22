@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>おすすめメニュー</title>
+    <style>
+        body {
+            text-align: center;
+            background: #f4f4f4;
+            font-size: 30px;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .menu { display: none; max-height: 80vh; overflow-y: auto; }
+        #menu-toggle:checked ~ .menu { display: block; }
+        .menu-item { padding: 10px; border-bottom: 1px solid #ccc; }
+        input[type="checkbox"] { width: 30px; height: 30px; margin-right: 10px; }
+        input[type="checkbox"]:focus { outline: 2px solid #007bff; }
+    </style>
+</head>
+<body>
+    <h1>おすすめメニュー</h1>
+    <label><input type="checkbox" id="menu-toggle"> メニューを表示</label>
+    <div class="menu"></div>
+    <script>
+        fetch('https://sheetdb.io/api/v1/qe3u81u1wtvub')
+            .then(response => response.json())
+            .then(data => {
+                const menuDiv = document.querySelector('.menu');
+                data.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'menu-item';
+                    menuItem.textContent = `${item.name}: ${item.price}`;
+                    menuDiv.appendChild(menuItem);
+                });
+            });
+    </script>
+</body>
+</html>
